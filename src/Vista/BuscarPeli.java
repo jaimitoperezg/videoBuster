@@ -143,6 +143,7 @@ public class BuscarPeli extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtBuscar.setText("");
+        txtBuscar.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

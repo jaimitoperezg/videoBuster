@@ -218,6 +218,7 @@ public class AgregarPeli extends javax.swing.JFrame {
         txtPrecioPeli.setText("");
         cmbCatPeli.setSelectedItem("Seleccione una categoría");
         cmb4K.setSelectedItem("Indique formato 4K");
+        txtNombrePeli.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

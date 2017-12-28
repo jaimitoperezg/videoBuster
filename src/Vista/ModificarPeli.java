@@ -285,6 +285,7 @@ public class ModificarPeli extends javax.swing.JFrame {
         txtPrecioPeli.setText("");
         cmbCatPeli.setSelectedItem("Seleccione una categoría");
         cmb4K.setSelectedItem("Indique formato 4K");
+        txtObtenPeli.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnModPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModPeliActionPerformed

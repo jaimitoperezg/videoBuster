@@ -188,6 +188,7 @@ public class AgregarCat extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtAddCat.setText("");
+        txtAddCat.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**

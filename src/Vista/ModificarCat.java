@@ -210,6 +210,7 @@ public class ModificarCat extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtAddCat.setText("");
         txtCodCat.setText("");
+        txtCodCat.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCatActionPerformed
