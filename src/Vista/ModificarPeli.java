@@ -61,6 +61,8 @@ public class ModificarPeli extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtObtenPeli = new javax.swing.JTextField();
         btnObtenPeli = new javax.swing.JButton();
+        btnAddP = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,6 +227,16 @@ public class ModificarPeli extends javax.swing.JFrame {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
+        btnAddP.setText("Agregar P al Nombre");
+        btnAddP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Edición masiva:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,7 +253,12 @@ public class ModificarPeli extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(btnAddP))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -253,7 +270,11 @@ public class ModificarPeli extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(85, 85, 85)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(btnAddP)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -404,6 +425,16 @@ public class ModificarPeli extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtObtenPeliKeyTyped
 
+    private void btnAddPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPActionPerformed
+        if(Registro.actualizarP()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Se agregó una letra P al inicio de todos los nombres de película.");
+        }
+        else
+        {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo agregar la letra P al incio del nombre de las películas.");
+        }
+    }//GEN-LAST:event_btnAddPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -440,6 +471,7 @@ public class ModificarPeli extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddP;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModPeli;
     private javax.swing.JButton btnObtenPeli;
@@ -451,6 +483,7 @@ public class ModificarPeli extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
