@@ -16,6 +16,7 @@ public class Registro {
     private static final String PELI_DELETE = "DELETE FROM pelicula WHERE codigo=?";
     private static final String DELETE_PRECIOM = "DELETE FROM pelicula WHERE precio > ?";
     private static final String PELI_UPDATE = "UPDATE pelicula SET nombre=?,precio=?,id_categoria=?,formato4k=? WHERE codigo=?";
+    private static final String PELI_UPDATEP = "UPDATE pelicula SET nombre = concat('P', nombre)";
     private static final String SEL_CAT = "SELECT * FROM categoria";
     private static final String SEL_CATID = "SELECT id FROM categoria WHERE descripcion = ?";
     private static final String SEL_CATDESC = "SELECT descripcion FROM categoria WHERE id = ?";
@@ -137,6 +138,23 @@ public class Registro {
             updPeli.setInt(3, peli.getId_categoria());
             updPeli.setString(4, peli.getFormato4k());
             updPeli.setInt(5, peli.getCodigo());
+            updPeli.execute();
+            updPeli.close();
+            conexion.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error SQL al agregar el registro " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public static boolean actualizarP()
+    {
+        try{
+            Connection conexion = Conexion.getConection();
+            PreparedStatement updPeli = conexion.prepareStatement(PELI_UPDATEP);
             updPeli.execute();
             updPeli.close();
             conexion.close();
