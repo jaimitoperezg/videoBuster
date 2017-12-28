@@ -14,6 +14,7 @@ public class Registro {
     private static final String CAT_DELETE = "DELETE FROM categoria WHERE id=?";
     private static final String PELI_INSERT = "INSERT INTO pelicula (codigo, nombre, precio, id_categoria, formato4k) VALUES(PELI_ID.NEXTVAL, ?, ?, ?, ?)";
     private static final String PELI_DELETE = "DELETE FROM pelicula WHERE codigo=?";
+    private static final String DELETE_PRECIOM = "DELETE FROM pelicula WHERE precio > ?";
     private static final String PELI_UPDATE = "UPDATE pelicula SET nombre=?,precio=?,id_categoria=?,formato4k=? WHERE codigo=?";
     private static final String SEL_CAT = "SELECT * FROM categoria";
     private static final String SEL_CATID = "SELECT id FROM categoria WHERE descripcion = ?";
@@ -95,10 +96,27 @@ public class Registro {
     public boolean borrarPeli(int codigo) {
         try{
             Connection conexion = Conexion.getConection();
-            PreparedStatement borrarChoco = conexion.prepareStatement(PELI_DELETE);
-            borrarChoco.setInt(1, codigo);
-            borrarChoco.execute();
-            borrarChoco.close();
+            PreparedStatement borrarPeli = conexion.prepareStatement(PELI_DELETE);
+            borrarPeli.setInt(1, codigo);
+            borrarPeli.execute();
+            borrarPeli.close();
+            conexion.close();
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error SQL al borrar el registro " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean borrarXprecioM(int precio) {
+        try{
+            Connection conexion = Conexion.getConection();
+            PreparedStatement borrarPrecio = conexion.prepareStatement(DELETE_PRECIOM);
+            borrarPrecio.setInt(1, precio);
+            borrarPrecio.execute();
+            borrarPrecio.close();
             conexion.close();
             return true;
         }

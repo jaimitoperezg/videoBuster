@@ -37,6 +37,8 @@ public class EliminarPeli extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btnMayor2Mil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +77,16 @@ public class EliminarPeli extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Eliminar por precio:");
+
+        btnMayor2Mil.setText("> 2.000");
+        btnMayor2Mil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMayor2MilActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +112,13 @@ public class EliminarPeli extends javax.swing.JFrame {
                             .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(284, 284, 284)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMayor2Mil)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -112,7 +130,11 @@ public class EliminarPeli extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(32, 32, 32)
                 .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(btnMayor2Mil)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnEliminar)
@@ -175,6 +197,26 @@ public class EliminarPeli extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_txtEliminarKeyTyped
 
+    private void btnMayor2MilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayor2MilActionPerformed
+        boolean verifica = true;
+        
+        int precio = 2000;
+
+        if(verifica == true) {
+            Registro borra = new Registro();
+            borra.borrarXprecioM(precio);
+
+            if (borra.borrarXprecioM(precio)){
+                javax.swing.JOptionPane.showMessageDialog(this, "Se borraron las películas cuyo precio era mayor a $"+ precio +".");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron películas para borrar con el filtro.");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Tienes un error. Por favor ingresa correctamente todos los datos.");
+        }
+    }//GEN-LAST:event_btnMayor2MilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,9 +255,11 @@ public class EliminarPeli extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnMayor2Mil;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtEliminar;
     // End of variables declaration//GEN-END:variables
 }
