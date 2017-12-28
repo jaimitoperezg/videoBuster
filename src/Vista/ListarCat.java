@@ -130,9 +130,9 @@ public class ListarCat extends javax.swing.JFrame {
         cListar.listarCat();
 
         DefaultTableModel tModel = (DefaultTableModel) this.tblListar.getModel();
-        System.out.println(cListar.listarPeli());
+        System.out.println(cListar.listarCat());
 
-        if(cListar.listarPeli().size()== 0) {
+        if(cListar.listarCat().size()== 0) {
             JOptionPane.showMessageDialog(null, "No se encontraron registros en la BBDD.");
         } else {
             JOptionPane.showMessageDialog(null, "Se encontraron "+ cListar.listarCat().size() +" registros en la BBDD");
