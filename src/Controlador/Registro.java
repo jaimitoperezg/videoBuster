@@ -21,6 +21,8 @@ public class Registro {
     private static final String BUSCAR_PELI = "SELECT * FROM pelicula WHERE codigo = ?";
     private static final String LIST_PELI = "SELECT * FROM pelicula";
     private static final String LIST_CAT = "SELECT * FROM categoria";
+    private static final String LIST_ROMANCE = "SELECT * FROM pelicula WHERE id_categoria = ?";
+    
     
     public static boolean ingresarCat(Categoria cat) {
         try{
@@ -231,6 +233,34 @@ public class Registro {
             System.out.println("Error SQL al borrar el registro " + e.getMessage());
         }
         return peliculas;
+    }
+    
+    public ArrayList<Pelicula> listarRomance() {
+        ArrayList<Pelicula> romances = new ArrayList<Pelicula>();
+        Connection conexion = Conexion.getConection();
+        try{
+            
+            PreparedStatement listRom = conexion.prepareStatement(LIST_ROMANCE);
+            listRom.setInt(1, getCatId("ROMANCE"));
+            ResultSet rs = listRom.executeQuery();
+            while(rs.next()) {
+                int codigo = rs.getInt("codigo");
+                String nombre = rs.getString("nombre");
+                int precio = rs.getInt("precio");
+                int idCategoria = rs.getInt("id_categoria");
+                String f4k = rs.getString("formato4k");
+
+                Pelicula peli = new Pelicula(codigo, nombre, precio, idCategoria, f4k);
+                romances.add(peli);
+            }
+            listRom.close();
+            conexion.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error SQL al borrar el registro " + e.getMessage());
+        }
+        return romances;
     }
     
     public ArrayList<Categoria> listarCat() {
