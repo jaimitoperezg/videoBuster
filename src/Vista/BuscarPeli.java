@@ -168,7 +168,10 @@ public class BuscarPeli extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         boolean respuesta = false;
-        if(this.txtBuscarText.getText().isEmpty()) {
+        if(this.txtBuscarText.getText().isEmpty() && this.txtBuscarCode.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un valor de código o texto para realizar una búsqueda.");
+        }
+        else if(this.txtBuscarText.getText().isEmpty()) {
             int buscar = Integer.parseInt(this.txtBuscarCode.getText());
             Registro pBuscar = new Registro();
             Pelicula finder = pBuscar.buscarPeli(buscar);
