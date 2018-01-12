@@ -164,6 +164,8 @@ public class BuscarPeli extends javax.swing.JFrame {
         txtBuscarCode.setText("");
         txtBuscarText.setText("");
         txtBuscarCode.grabFocus();
+        DefaultTableModel tModel = (DefaultTableModel) this.tblBuscar.getModel();
+        tModel.setRowCount(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
