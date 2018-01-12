@@ -34,19 +34,22 @@ public class BuscarPeli extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        txtBuscarCode = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscar = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        txtBuscarText = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel1.setText("Buscar Películas");
 
-        jLabel2.setText("Ingrese el código del registro que desea buscar:");
+        jLabel2.setText("Ingrese el código de la película que desea buscar:");
 
         tblBuscar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +85,10 @@ public class BuscarPeli extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Ingrese el nombre de la película que desea buscar:");
+
+        jLabel4.setText("O");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,33 +105,45 @@ public class BuscarPeli extends javax.swing.JFrame {
                         .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 223, Short.MAX_VALUE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(211, 211, 211))))
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(384, 384, 384))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(324, 324, 324))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(384, 384, 384))))
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscarCode, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel4)))
+                .addGap(120, 120, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscarText)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(101, 101, 101))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscarCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnBuscar)
@@ -142,27 +161,46 @@ public class BuscarPeli extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtBuscar.setText("");
-        txtBuscar.grabFocus();
+        txtBuscarCode.setText("");
+        txtBuscarText.setText("");
+        txtBuscarCode.grabFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         boolean respuesta = false;
-        int buscar = Integer.parseInt(this.txtBuscar.getText());
+        if(this.txtBuscarText.getText().isEmpty()) {
+            int buscar = Integer.parseInt(this.txtBuscarCode.getText());
+            Registro pBuscar = new Registro();
+            Pelicula finder = pBuscar.buscarPeli(buscar);
+            
+            if(finder == null) {
+                respuesta = true;
+            }
 
-        Registro pBuscar = new Registro();
-        Pelicula finder = pBuscar.buscarPeli(buscar);
+            if(respuesta == true) {
+                JOptionPane.showMessageDialog(null, "No existe el registre en la BBDD. Intenta con otro número.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El registro fue encontrado con éxito");
+                DefaultTableModel tModel = (DefaultTableModel) this.tblBuscar.getModel();
+                tModel.addRow(new Object[] {finder.getCodigo(), finder.getNombre(), Registro.getCatDesc(finder.getId_categoria()), finder.getFormato4k(), finder.getPrecio()});
+            }
+        } else if(this.txtBuscarCode.getText().isEmpty()) {
+            String buscar = this.txtBuscarText.getText();
+            Registro pBuscar = new Registro();
+            Pelicula finder = pBuscar.buscarPeliTxt(buscar);
+            
+                        
+            if(finder == null) {
+                respuesta = true;
+            }
 
-        if(finder == null) {
-            respuesta = true;
-        }
-
-        if(respuesta == true) {
-            JOptionPane.showMessageDialog(null, "No existe el registre en la BBDD. Intenta con otro número.");
-        } else {
-            JOptionPane.showMessageDialog(null, "El registro fue encontrado con éxito");
-            DefaultTableModel tModel = (DefaultTableModel) this.tblBuscar.getModel();
-            tModel.addRow(new Object[] {finder.getCodigo(), finder.getNombre(), Registro.getCatDesc(finder.getId_categoria()), finder.getFormato4k(), finder.getPrecio()});
+            if(respuesta == true) {
+                JOptionPane.showMessageDialog(null, "No existen nombres con ese texto en la BBDD. Intenta con otra palabra.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El texto fue encontrado con éxito");
+                DefaultTableModel tModel = (DefaultTableModel) this.tblBuscar.getModel();
+                tModel.addRow(new Object[] {finder.getCodigo(), finder.getNombre(), Registro.getCatDesc(finder.getId_categoria()), finder.getFormato4k(), finder.getPrecio()});
+            }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -207,8 +245,11 @@ public class BuscarPeli extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBuscar;
-    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscarCode;
+    private javax.swing.JTextField txtBuscarText;
     // End of variables declaration//GEN-END:variables
 }

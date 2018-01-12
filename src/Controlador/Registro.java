@@ -21,6 +21,7 @@ public class Registro {
     private static final String SEL_CATID = "SELECT id FROM categoria WHERE descripcion = ?";
     private static final String SEL_CATDESC = "SELECT descripcion FROM categoria WHERE id = ?";
     private static final String BUSCAR_PELI = "SELECT * FROM pelicula WHERE codigo = ?";
+    private static final String BUSCAR_PELI_TXT = "SELECT * FROM pelicula WHERE nombre = ?";
     private static final String LIST_PELI = "SELECT * FROM pelicula";
     private static final String LIST_CAT = "SELECT * FROM categoria";
     private static final String LIST_ROMANCE = "SELECT * FROM pelicula WHERE id_categoria = ?";
@@ -238,7 +239,35 @@ public class Registro {
         }
         catch(Exception e)
         {
-            System.out.println("Error SQL al borrar el registro " + e.getMessage());
+            System.out.println("Error SQL al buscar el codigo del registro " + bCodigo + e.getMessage());
+            return peli;
+        }
+        return null;
+    }
+     
+    public static Pelicula buscarPeliTxt(String bNombre) {
+        Pelicula peli = null;
+        try{
+            Connection conexion = Conexion.getConection();
+            PreparedStatement buscaPel = conexion.prepareStatement(BUSCAR_PELI_TXT);
+            buscaPel.setString(1, bNombre);
+            ResultSet rs = buscaPel.executeQuery();
+            if(rs.next()) {
+                int codigo = rs.getInt("codigo");
+                String nombre = rs.getString("nombre");
+                int precio = rs.getInt("precio");
+                int idCategoria = rs.getInt("id_categoria");
+                String f4k = rs.getString("formato4k");
+
+                peli = new Pelicula(codigo, nombre, precio, idCategoria, f4k);
+                return peli;
+            }
+            buscaPel.close();
+            conexion.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error SQL al buscar en los nombres el registro " + bNombre + e.getMessage());
             return peli;
         }
         return null;
