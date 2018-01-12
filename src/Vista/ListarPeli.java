@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.Registro;
 import Modelo.Pelicula;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +22,12 @@ public class ListarPeli extends javax.swing.JFrame {
      */
     public ListarPeli() {
         initComponents();
+        cmbCatPeli.addItem("Seleccione una categoría");
+        ArrayList<String> lista = new ArrayList<String>();
+        lista = Registro.selectCat();
+        for(int i = 0; i < lista.size(); i++) {
+            cmbCatPeli.addItem(lista.get(i));
+        }
     }
 
     /**
@@ -40,6 +47,10 @@ public class ListarPeli extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         btnListaRomance = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        cmbCatPeli = new javax.swing.JComboBox();
+        btnListarXCat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +94,34 @@ public class ListarPeli extends javax.swing.JFrame {
 
         jLabel3.setText("Listar por Categoría:");
 
+        jLabel4.setText("Listar por Categoría:");
+
+        btnListarXCat.setText("Listar x Categoría");
+        btnListarXCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarXCatActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(cmbCatPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnListarXCat)
+                .addGap(0, 117, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbCatPeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListarXCat))
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,7 +131,11 @@ public class ListarPeli extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(487, 487, 487))
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(btnListaRomance))
@@ -120,11 +163,15 @@ public class ListarPeli extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 447, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(btnListaRomance)
-                .addGap(88, 88, 88))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnListaRomance)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(64, 64, 64)
@@ -161,6 +208,9 @@ public class ListarPeli extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Se encontraron "+ pListar.listarPeli().size() +" registros en la BBDD");
         }
+        
+        tModel.setRowCount(0);
+        
         for (Pelicula object: pListar.listarPeli()) {
             //
             tModel.addRow(new Object[] {object.getCodigo(), object.getNombre(), Registro.getCatDesc(object.getId_categoria()), object.getFormato4k(), object.getPrecio()});
@@ -181,11 +231,38 @@ public class ListarPeli extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Se encontraron "+ pListar.listarRomance().size() +" registros en la BBDD");
         }
+        
+        tModel.setRowCount(0);
+        
         for (Pelicula object: pListar.listarRomance()) {
             //
             tModel.addRow(new Object[] {object.getCodigo(), object.getNombre(), Registro.getCatDesc(object.getId_categoria()), object.getFormato4k(), object.getPrecio()});
         }
     }//GEN-LAST:event_btnListaRomanceActionPerformed
+
+    private void btnListarXCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarXCatActionPerformed
+        boolean respuesta = false;
+        String catName = (String) this.cmbCatPeli.getSelectedItem();
+        
+        Registro listarPor = new Registro();
+        listarPor.listarPorCat(catName);
+
+        DefaultTableModel tModel = (DefaultTableModel) this.tblListar.getModel();
+            System.out.println(listarPor.listarPorCat(catName));
+        
+        if(listarPor.listarPorCat(catName).size()== 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros en la BBDD.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Se encontraron "+ listarPor.listarPorCat(catName).size() +" registros en la BBDD");
+        }
+
+        tModel.setRowCount(0);
+
+        for (Pelicula object: listarPor.listarPorCat(catName)) {
+            //
+            tModel.addRow(new Object[] {object.getCodigo(), object.getNombre(), Registro.getCatDesc(object.getId_categoria()), object.getFormato4k(), object.getPrecio()});
+        }
+    }//GEN-LAST:event_btnListarXCatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,10 +302,14 @@ public class ListarPeli extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListaRomance;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnListarXCat;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox cmbCatPeli;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblListar;
     // End of variables declaration//GEN-END:variables

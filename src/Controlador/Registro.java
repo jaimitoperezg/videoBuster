@@ -24,7 +24,7 @@ public class Registro {
     private static final String BUSCAR_PELI_TXT = "SELECT * FROM pelicula WHERE nombre = ?";
     private static final String LIST_PELI = "SELECT * FROM pelicula";
     private static final String LIST_CAT = "SELECT * FROM categoria";
-    private static final String LIST_ROMANCE = "SELECT * FROM pelicula WHERE id_categoria = ?";
+    private static final String LIST_POR_CAT = "SELECT * FROM pelicula WHERE id_categoria = ?";
     
     
     public static boolean ingresarCat(Categoria cat) {
@@ -183,6 +183,8 @@ public class Registro {
         return lista;
     }
     
+    
+    //obtiene el ID de categoria a partir del texto de la descripción
     public static int getCatId(String desc) {
         Connection conexion = Conexion.getConection();
         try{
@@ -200,6 +202,7 @@ public class Registro {
         return 0;
     }
     
+    //obtiene la descripción de la categoría a partir de su número de ID
     public static String getCatDesc(int id) {
         Connection conexion = Conexion.getConection();
         try{
@@ -305,7 +308,7 @@ public class Registro {
         Connection conexion = Conexion.getConection();
         try{
             
-            PreparedStatement listRom = conexion.prepareStatement(LIST_ROMANCE);
+            PreparedStatement listRom = conexion.prepareStatement(LIST_POR_CAT);
             listRom.setInt(1, getCatId("ROMANCE"));
             ResultSet rs = listRom.executeQuery();
             while(rs.next()) {
@@ -326,6 +329,34 @@ public class Registro {
             System.out.println("Error SQL al borrar el registro " + e.getMessage());
         }
         return romances;
+    }
+    
+     public ArrayList<Pelicula> listarPorCat(String catDesc) {
+        ArrayList<Pelicula> listasCat = new ArrayList<Pelicula>();
+        Connection conexion = Conexion.getConection();
+        try{
+            
+            PreparedStatement listPCat = conexion.prepareStatement(LIST_POR_CAT);
+            listPCat.setInt(1, getCatId(catDesc.toUpperCase()));
+            ResultSet rs = listPCat.executeQuery();
+            while(rs.next()) {
+                int codigo = rs.getInt("codigo");
+                String nombre = rs.getString("nombre");
+                int precio = rs.getInt("precio");
+                int idCategoria = rs.getInt("id_categoria");
+                String f4k = rs.getString("formato4k");
+
+                Pelicula peli = new Pelicula(codigo, nombre, precio, idCategoria, f4k);
+                listasCat.add(peli);
+            }
+            listPCat.close();
+            conexion.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error SQL al listar por la categoría seleccionada " + e.getMessage());
+        }
+        return listasCat;
     }
     
     public ArrayList<Categoria> listarCat() {
